@@ -1,6 +1,7 @@
 import pika
 import traceback, sys
 
+
 conn_params = pika.ConnectionParameters('rabbit', 5672)
 connection = pika.BlockingConnection(conn_params)
 channel = connection.channel()
@@ -8,7 +9,7 @@ channel = connection.channel()
 channel.exchange_declare(exchange='topic_example',
                          exchange_type='topic')
 
-result = channel.queue_declare(queue="", exclusive=True)
+result = channel.queue_declare(queue="", durable=True, exclusive=True)
 queue_name = result.method.queue
 
 binding_keys = sys.argv[1:]
@@ -24,6 +25,7 @@ for binding_key in binding_keys:
 print("Waiting for logs. To exit press CTRL+C")
 
 def callback(ch, method, properties, body):
+
     print("Received: %r:%r" % (method.routing_key, body))
 
 channel.basic_consume(on_message_callback=callback,

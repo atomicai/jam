@@ -5,7 +5,9 @@ rabbitmq:latest
 
 *********************************
 
- pip install pika
+sudo chmod 777 wait-for-it.sh
+
+pip install pika
 
 *********************************
 
