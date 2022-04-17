@@ -1,0 +1,15 @@
+
+docker images required:
+ubuntu:latest
+rabbitmq:latest
+
+*********************************
+
+ pip install pika
+
+*********************************
+
+python3 producer.py "all.blabla" "hello everybody"  - отправляем обоим консьюмерам
+python3 producer.py "first.blabla" "Igor, please sign" - отправляем первому консьюмеру (ключи: "first.*", "all.*")
+python3 producer.py "second.blabla" "Denis, please sign" - отправляем второму консьюмеру (ключи: "second.*", "all.*")
+

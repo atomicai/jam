@@ -1,0 +1,9 @@
+FROM ubuntu
+RUN apt-get update
+RUN apt-get install -y python3 python3-pip
+WORKDIR /code
+ADD consumer.py /code
+ADD requirements.txt /code
+ADD wait-for-it.sh /code
+RUN pip3 install -r /code/requirements.txt
+CMD ["/code/wait-for-it.sh", "rabbit:5672", "--", "python3", "-u", "/code/consumer.py", "first.*", "all.*"]
